@@ -1,78 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Beer Finder</title>
+    <title>Find Me A Brew</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta charset="utf-8">
-
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
-    <script>
-        
-        var map;
-        var infowindow;
-        var loc;
-        function initialize() {
-            getDefaultLocation()
-            var mapOptions = {
-                zoom: 13,
-                center: loc,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            map = new google.maps.Map(document.getElementById('map-canvas'),
-                  mapOptions);
-            var newLocation = new google.maps.LatLng(33.748995, -84.387982);
-            var request = {
-                location: newLocation,
-                radius: 500,
-                types: ['food']
-            };
-            infowindow = new google.maps.InfoWindow();
-            var service = new google.maps.places.PlacesService(map);
-            service.nearbySearch(request, callback);
-        }
-        
-        function callback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    createMarker(results[i]);
-                }
-            }
-        }
-        
-        function createMarker(place) {
-            var placeLoc = place.geometry.location;
-            var marker = new google.maps.Marker({
-                                                map: map,
-                                                position: place.geometry.location
-                                                });
-            google.maps.event.addListener(marker, 'click', function() {
-                                          infowindow.setContent(place.name);
-                                          infowindow.open(map, this);
-                                          });
-        }
-
-        function getDefaultLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, error);
-            } else {
-                alert('geolocation not supported');
-            }
-        }
-
-        function success(position) {
-            loc = new google.maps.LatLng(position.coords.latitude,
-                                               position.coords.longitude);
-            pos1 = position.coords.latitude;
-            pos2 = position.coords.longitude;
-            map.setCenter(loc, 13);
-        }
-
-        function error(msg) {
-            alert('error: ' + msg);
-        }       
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    <script type="text/javascript" src="js/map.js"></script>
   </head>
   <body>
     <span class="tab">Enter your zip:</span>
@@ -80,35 +15,4 @@
     <button type="button" onclick="plotZip()">Find Me A Brew!</button>
     <div id="map-canvas"></div>
   </body>
-    <script>
-        
-        function getZip()
-        {
-            return document.getElementById('TEXTBOX_ID').value;
-            
-        }
-        
-        function IsNumeric(input)
-        {
-            return (input - 0) == input && (input+'').replace(/^\s+|\s+$/g, "").length > 0;
-        }
-        
-        function validateZip(zipcode) {
-            if (zipcode.length == 5 && IsNumeric(zipcode)){
-                return true;
-            }
-            return false;
-        }
-        
-        function plotZip(){
-            var zip = getZip();
-            if (validateZip(zip)){
-                //logic for plotting
-            }
-            else {
-                alert('Please enter a Numeric 5 Digit ZIP code');
-            }
-        }
-        
-   </script>
 </html>
