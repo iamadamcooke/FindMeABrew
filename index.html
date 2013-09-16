@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Michael Underwood and Adam Cooke-->
 <html>
   <head>
     <title>Beer Finder</title>
@@ -45,6 +44,7 @@
   <body>
     <span class="tab">Enter your zip:</span>
     <input type="text" id="TEXTBOX_ID">
+    <button type="button">Find Me A Brew!</button>
     <div id="map-canvas"></div>
   </body>
     <script>
@@ -53,6 +53,18 @@
         {
             return document.getElementById('TEXTBOX_ID');
             
+        }
+        
+        function IsNumeric(input)
+        {
+            return (input - 0) == input && (input+'').replace(/^\s+|\s+$/g, "").length > 0;
+        }
+        
+        function validateZip(zipcode) {
+            if (zipcode.length == 5 && IsNumeric(zipcode)){
+                return true;
+            }
+            return false;
         }
         
    </script>
