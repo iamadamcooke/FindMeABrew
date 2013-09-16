@@ -4,23 +4,15 @@
         $(document).ready(function () {
             console.log('document ready');
         function initialize() {
-            getDefaultLocation()
+            getDefaultLocation();
             var mapOptions = {
-                zoom: 13,
+                zoom: 15,
                 center: loc,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             map = new google.maps.Map(document.getElementById('map-canvas'),
                   mapOptions);
-            var newLocation = new google.maps.LatLng(33.748995, -84.387982);
-            var request = {
-                location: newLocation,
-                radius: 500,
-                types: ['food']
-            };
-            infowindow = new google.maps.InfoWindow();
-            var service = new google.maps.places.PlacesService(map);
-            service.nearbySearch(request, callback);
+            
         }
         initialize();
         //google.maps.event.addDomListener(window, 'load', initialize);
@@ -48,7 +40,7 @@
 
         function getDefaultLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, error);
+                 navigator.geolocation.getCurrentPosition(success, error);
             } else {
                 alert('geolocation not supported');
             }
@@ -57,13 +49,25 @@
         function success(position) {
             loc = new google.maps.LatLng(position.coords.latitude,
                                                position.coords.longitude);
-            pos1 = position.coords.latitude;
-            pos2 = position.coords.longitude;
             map.setCenter(loc, 13);
+            newPlacesRequest(loc, 1609);
+
+        }
+
+        function newPlacesRequest(location, radius) {
+            var request = {
+                location: location,
+                radius: radius,
+                types: ['bar']
+            };
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, callback);
         }
 
         function error(msg) {
-            alert('error: ' + msg);
+
+            return alert('error: ' + msg);
         }       
         
 
