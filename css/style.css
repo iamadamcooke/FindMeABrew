@@ -1,0 +1,23 @@
+html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body{
+    background-color:#B0C4DE;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#map-canvas{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+span.tab{
+    padding: 0 80px; /* Or desired space*/
+}
+
