@@ -44,14 +44,14 @@
   <body>
     <span class="tab">Enter your zip:</span>
     <input type="text" id="TEXTBOX_ID">
-    <button type="button">Find Me A Brew!</button>
+    <button type="button" onclick="plotZip()">Find Me A Brew!</button>
     <div id="map-canvas"></div>
   </body>
     <script>
         
         function getZip()
         {
-            return document.getElementById('TEXTBOX_ID');
+            return document.getElementById('TEXTBOX_ID').value;
             
         }
         
@@ -65,6 +65,16 @@
                 return true;
             }
             return false;
+        }
+        
+        function plotZip(){
+            var zip = getZip();
+            if (validateZip(zip)){
+                //logic for plotting
+            }
+            else {
+                alert('Enter a 5 Digit ZIP code');
+            }
         }
         
    </script>
