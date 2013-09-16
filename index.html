@@ -10,11 +10,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
         
-        function getZip()
-        {
-            return document.getElementById('TEXTBOX_ID');
-            
-        }
         var map;
         function initialize() {
             var mapOptions = {
@@ -30,10 +25,19 @@
     </script>
   </head>
   <body>
-      <span class="tab">Enter your zip:</span>
+    <span class="tab">Enter your zip:</span>
     <input type="text" id="TEXTBOX_ID">
     <div id="map-canvas"></div>
   </body>
+    <script>
+        
+        function getZip()
+        {
+            return document.getElementById('TEXTBOX_ID');
+            
+        }
+        
+   </script>
 </html>
 
 
