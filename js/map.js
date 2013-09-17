@@ -1,17 +1,20 @@
         var map;
         var infowindow;
         var loc;
+        var geocoder;
+        var MILE_RADIUS = 1609;
         $(document).ready(function () {
             console.log('document ready');
         function initialize() {
             getDefaultLocation();
             var mapOptions = {
-                zoom: 15,
+                zoom: 14,
                 center: loc,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             map = new google.maps.Map(document.getElementById('map-canvas'),
                   mapOptions);
+            geocoder = new google.maps.Geocoder();
             
         }
         initialize();
@@ -50,15 +53,29 @@
             loc = new google.maps.LatLng(position.coords.latitude,
                                                position.coords.longitude);
             map.setCenter(loc, 13);
-            newPlacesRequest(loc, 1609);
+            newPlacesRequest(loc, MILE_RADIUS);
+            latLngToZip(loc);
+            
+            
 
         }
 
         function newPlacesRequest(location, radius) {
+            var typesToPlot = new Array();
+            if(document.getElementById('bar_checkbox').checked) {
+                typesToPlot.push('bar');
+            }
+            if(document.getElementById('liquorStore_checkbox').checked) {
+                typesToPlot.push('liquor_store');
+            }
+            if(document.getElementById('nightClub_checkbox').checked) {
+                typesToPlot.push('night_club');
+            }
+            
             var request = {
                 location: location,
                 radius: radius,
-                types: ['bar']
+                types: typesToPlot
             };
             infowindow = new google.maps.InfoWindow();
             var service = new google.maps.places.PlacesService(map);
@@ -88,11 +105,30 @@
             }
             return false;
         }
+
+        function latLngToZip(location) {
+             geocoder.geocode({'latLng': location}, function (res, status) {  
+                var zipArray = res[0].formatted_address.match(/,\s\w{2}\s(\d{5})/);  
+                document.getElementById('TEXTBOX_ID').value = zipArray[1];
+                
+
+});  
+                    
+        }
         
         function plotZip(){
             var zip = getZip();
             if (validateZip(zip)){
-                //logic for plotting
+                geocoder.geocode( { 'address': zip}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        //Got result, center the map and put it out there
+        var newLocation = results[0].geometry.location;
+        map.setCenter(newLocation);
+        newPlacesRequest(newLocation, MILE_RADIUS);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
             }
             else {
                 alert('Please enter a Numeric 5 Digit ZIP code');
