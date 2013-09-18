@@ -10,18 +10,46 @@
     
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <meta charset="utf-8">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
     <script type="text/javascript" src="js/map.js"></script>
+    <script type ="text/javascript" src="js/bootstrap.js"></script>
   </head>
   <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+  <span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="brand" href="index.html">FindMeABrew</a>
+<div class="nav-collapse collapse" style="float: right;">
+<ul class="nav">
+<li class="active">
+  <a href="index.html">Home</a>
+</li>
+<li class="">
+  <a href="about.html">About</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="plot-options" style="padding-top: 30pt;">
     <span class="text">Enter your zip:</span>
     <input type="text" id="TEXTBOX_ID">
     <button type="button" onclick="plotZip()">Find Me A Brew!</button>
     <input type="checkbox" id="bar_checkbox" checked="checked">Bar</input>
     <input type="checkbox" id="liquorStore_checkbox">Liquor Store</input>
     <input type="checkbox" id="nightClub_checkbox">Night Club</input>
+  </div>
     <div id="map-canvas"></div>
   </body>
 </html>
+
+
