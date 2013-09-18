@@ -62,13 +62,13 @@
 
     function newPlacesRequest(location, radius) {
         var typesToPlot = new Array();
-        if(document.getElementById('bar_checkbox').checked) {
+        if(document.getElementById('bar-checkbox').checked) {
             typesToPlot.push('bar');
         }
-        if(document.getElementById('liquorStore_checkbox').checked) {
+        if(document.getElementById('liquorStore-checkbox').checked) {
             typesToPlot.push('liquor_store');
         }
-        if(document.getElementById('nightClub_checkbox').checked) {
+        if(document.getElementById('nightClub-checkbox').checked) {
             typesToPlot.push('night_club');
         }
         
@@ -90,7 +90,7 @@
 
     function getZip()
     {
-        return document.getElementById('TEXTBOX_ID').value;
+        return document.getElementById('zip-textbox').value;
         
     }
     
@@ -109,7 +109,7 @@
     function latLngToZip(location) {
        geocoder.geocode({'latLng': location}, function (res, status) {  
         var zipArray = res[0].formatted_address.match(/,\s\w{2}\s(\d{5})/);  
-        document.getElementById('TEXTBOX_ID').value = zipArray[1];
+        document.getElementById('zip-textbox').value = zipArray[1];
         
 
     });  
